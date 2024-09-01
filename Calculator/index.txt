@@ -5,4 +5,5 @@
 2. eval()이라는 자바스크립트 내장 함수로 계산을 하고, 수식이 입력된 경우에 Error을 출력한다.
 3. clr()함수로 수식 초기화
 4. toggleMode()로 다크모드, 화이트모드로 변환
-깃헙 링크
+깃헙 링크 :
+https://github.com/sunirn24haerin/Calc
