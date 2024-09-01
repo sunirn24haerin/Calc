@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .calc-container {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        #a {
+            font-size: 32px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: right;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-number {
+            background-color: #ede7f6;
+            color: #311b92;
+        }
+        .button-number:hover {
+            background-color: #d1c4e9;
+        }
+        .button-number:active {
+            background-color: #b39ddb;
+        }
+        .operator {
+            background-color: #673ab7;
+            color: #ffffff;
+        }
+        .operator:hover {
+            background-color: #5e35b1;
+        }
+        .operator:active {
+            background-color: #512da8;
+        }
+        .equals {
+            background-color: #311b92;
+            color: #ffffff;
+        }
+        .equals:hover {
+            background-color: #4527a0;
+        }
+        .equals:active {
+            background-color: #311b92;
+        }
+        .mode-toggle {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .light-mode .calc-container {
+            background-color: #d1c4e9;
+        }
+        .light-mode #a {
+            background-color: #b39ddb;
+            color: #311b92;
+        }
+        .light-mode .button-number {
+            background-color: #ede7f6;
+            color: #311b92;
+        }
+        .light-mode .operator {
+            background-color: #673ab7;
+            color: #ffffff;
+        }
+        .light-mode .equals {
+            background-color: #311b92;
+            color: #ffffff;
+        }
+        .light-mode .mode-toggle {
+            background-color: #b39ddb;
+            color: #311b92;
+        }
+        .light-mode .mode-toggle:hover {
+            background-color: #9e99d4;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .dark-mode .calc-container {
+            background-color: #1e1e1e;
+        }
+        .dark-mode #a {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .dark-mode .button-number {
+            background-color: #444444;
+            color: #ffffff;
+        }
+        .dark-mode .button-number:hover {
+            background-color: #555555;
+        }
+        .dark-mode .button-number:active {
+            background-color: #666666;
+        }
+        .dark-mode .operator {
+            background-color: #7e57c2;
+            color: #ffffff;
+        }
+        .dark-mode .operator:hover {
+            background-color: #9575cd;
+        }
+        .dark-mode .operator:active {
+            background-color: #b39ddb;
+        }
+        .dark-mode .equals {
+            background-color: #6a1b9a;
+            color: #ffffff;
+        }
+        .dark-mode .equals:hover {
+            background-color: #7b1fa2;
+        }
+        .dark-mode .equals:active {
+            background-color: #6a1b9a;
+        }
+        .dark-mode .mode-toggle {
+            background-color: #7e57c2;
+            color: #ffffff;
+        }
+        .dark-mode .mode-toggle:hover {
+            background-color: #9575cd;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="calc-container">
+        <div id="a">0</div>
+        <button class="button-number" onclick="p('1')">1</button>
+        <button class="button-number" onclick="p('2')">2</button>
+        <button class="button-number" onclick="p('3')">3</button>
+        <button class="operator" onclick="p('+')">+</button>
+        <br>
+        <button class="button-number" onclick="p('4')">4</button>
+        <button class="button-number" onclick="p('5')">5</button>
+        <button class="button-number" onclick="p('6')">6</button>
+        <button class="operator" onclick="p('-')">-</button>
+        <br>
+        <button class="button-number" onclick="p('7')">7</button>
+        <button class="button-number" onclick="p('8')">8</button>
+        <button class="button-number" onclick="p('9')">9</button>
+        <button class="operator" onclick="p('*')">*</button>
+        <br>
+        <button onclick="clr()" class="button-number">C</button>
+        <button class="button-number" onclick="p('0')">0</button>
+        <button class="equals" onclick="c()">=</button>
+        <button class="operator" onclick="p('/')">/</button>
+        <br>
+        <button class="mode-toggle" onclick="toggleMode()">Toggle Mode</button>
+    </div>
+
+    <script>
+        let a = document.getElementById('a');
+        let b = '';
+
+        //수식 추가 && 결과
+        function p(val) {
+            b += val;
+            a.innerText = b;
+        }
+
+        //올바른 형식이 아닐때 Error 발생
+        function c() {
+            try {
+                b = eval(b); //문자열을 자바스크립트 코드로 실행할 수 있게 해줌
+                a.innerText = b;
+            } catch {
+                a.innerText = 'Err';
+            }
+        }
+
+        //수식 초기화
+        function clr() {
+            b = '';
+            a.innerText = '0';
+        }
+
+        //다크 모드 화이트 모드로 변환
+        function toggleMode() {
+            let body = document.body;
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+            }
+        }
+    </script>
+</body>
+</html>
